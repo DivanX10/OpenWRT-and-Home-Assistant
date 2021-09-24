@@ -8,7 +8,8 @@
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/autobackup.sh -O - | sh
 ```
 
-Удаление Home Assistant
+Удаление Home Assistant. Внимание! Этот скрипт удаляет только сам Home-Assistant и папки Home-Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). 
+
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_python3.9_delete.sh - | sh
 ```
