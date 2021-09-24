@@ -5,7 +5,7 @@ bkpfolder="
 /etc/homeassistant
 /etc/zigbee2mqtt
 /etc/mosquitto
-/mpd"
+"
 
 bkpfile="/etc/mpd.conf"
 
