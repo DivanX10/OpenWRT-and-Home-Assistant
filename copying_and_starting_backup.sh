@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir /backup&&
 mkdir /scripts&&
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/autobackup.sh /scripts/autobackup.sh&&
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/copying_and_starting_backup.sh -O /script/autobackup.sh&&
 chmod ugo+x /scripts/autobackup.sh&&
 sh /scripts/autobackup.sh
