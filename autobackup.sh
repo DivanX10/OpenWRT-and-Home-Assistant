@@ -1,5 +1,5 @@
 #!/bin/bash
 echo "Starting the backup of the Home Assistant, zigbee2mqtt, mosquitto, mpd"
+sleep 2
 mkdir /backup&&
-wget https://github.com/DivanX10/OpenWRT-and-Home-Assistant/edit/main/autobackup.sh -O /tmp/autobackup.sh&&
-sh /tmp/autobackup.sh
+tar -cvf /backup/gateway_backup-$(date +%Y%m%d).tar /etc/homeassistant /etc/zigbee2mqtt /etc/mosquitto /mpd
