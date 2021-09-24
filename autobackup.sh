@@ -1,5 +1,18 @@
 #!/bin/bash
-echo "Starting the backup of the Home Assistant, zigbee2mqtt, mosquitto, mpd"
+
+# backup - указываем путь, где будет храниться бэкап
+backup="/backup/gateway_backup-$(date +%Y%m%d).tar"
+
+# bkpfolder - бэкап папок. Указываем какие папки нужно бэкапить
+bkpfolder="/etc/homeassistant
+/etc/zigbee2mqtt
+/etc/mosquitto
+/mpd"
+
+# bkpfile - бэкап файлов. Указываем какие файлы нужно бэкапить
+bkpfile="/etc/mpd.conf"
+
+echo "Starting a backup"
 sleep 2
-mkdir /backup&&
-tar cvf /backup/gateway_backup-$(date +%Y%m%d).tar /etc/mpd.conf /etc/homeassistant /etc/mosquitto /etc/zigbee2mqtt
+tar -cvf $backup $OF $bkpfolder $of $bkpfile&&
+echo "The backup was completed successfully"
