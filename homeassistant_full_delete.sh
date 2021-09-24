@@ -81,6 +81,3 @@ sleep 2
 echo "The dependent packages have been removed. Home Assistant has been completely removed"
 sleep 2
 exit
-
-
-
