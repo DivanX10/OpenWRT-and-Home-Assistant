@@ -3,28 +3,28 @@
 Все действия выполняются через консоль.
 
 
-Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto
+__Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/autobackup.sh -O - | sh
 ```
 
-Удаление только Home Assistant. Не удаляет зависымые пакеты. Этот скрипт удаляет только сам Home Assistant и папки Home Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). Данный вариант подходит, если вы хотите установить Home Assistant другой версии 
+__Удаление только Home Assistant. Не удаляет зависимые пакеты. Этот скрипт удаляет только сам Home Assistant и папки Home Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). Данный вариант подходит, если вы хотите установить Home Assistant другой версии__ 
 
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_python3.9_delete.sh -O - | sh
 ```
 
-Полное удаление. Удаляет Home Assistant и зависымые пакеты.
+__Полное удаление. Удаляет Home Assistant и зависымые пакеты.__
 ```
 https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_full_delete.sh -O - | sh
 ```
 
-Установка Home Assistant версии 2021.9.3
+__Установка Home Assistant версии 2021.9.3__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_install_2021_9_3.sh -O - | sh
 ```
 
-Установка Home Assistant версии 2021.9.5
+__Установка Home Assistant версии 2021.9.5__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_install_2021_9_5.sh -O - | sh
 ```
