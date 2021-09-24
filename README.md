@@ -16,7 +16,7 @@ wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/
 
 __Полное удаление. Удаляет Home Assistant и зависымые пакеты.__
 ```
-https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_full_delete.sh -O - | sh
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_full_delete.sh -O - | sh
 ```
 
 __Установка Home Assistant версии 2021.9.3__
