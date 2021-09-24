@@ -3,7 +3,7 @@
 Все действия выполняются через консоль.
 
 
-Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto + mpd
+Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/autobackup.sh -O - | sh
 ```
