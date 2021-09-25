@@ -2,6 +2,7 @@
 echo "Starting the Home Assistant removal"
 sleep 1
 /etc/init.d/homeassistant stop&&
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/requirements.txt -O /tmp/requirements.txt&&
 sleep 5
 pip3 uninstall homeassistant -y&&
 rm -R /etc/homeassistant&&
