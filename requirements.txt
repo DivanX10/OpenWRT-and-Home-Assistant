@@ -1,0 +1,29 @@
+astral==2.2
+atomicwrites==1.4.0
+awesomeversion==21.4.0
+PyJWT==1.7.1
+voluptuous==0.12.1
+voluptuous-serialize==2.4.0
+snitun==0.21  # nabucasa dep
+tzdata==2021.1  # 2021.6 requirement
+sqlalchemy==1.4.23  # recorder requirement
+
+# homeassistant manifest requirements
+async-upnp-client==0.20.0
+PyQRCode==1.2.1
+pyMetno==0.8.3
+mutagen==1.45.1
+pyotp==2.3.0
+gTTS==2.2.3
+pyroute2==0.5.18
+aioesphomeapi==8.0.0
+zeroconf==0.36.2
+
+# zha requirements
+pyserial==3.5
+zha-quirks==0.0.60
+zigpy==0.37.1
+https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip  # include raw mode support
+
+# fixed dependencies
+python-jose[cryptography]==3.2.0  # (pycognito) 3.3.0 is not compatible with the python3-cryptography in the feed
