@@ -2,6 +2,10 @@
 
 Все действия выполняются через консоль.
 
+__На всякий случай можете сделать полный бэкап вручную, через консоль__
+```
+tar cvz -f /tmp/backup_$(date +%d-%m-20%y_%H-%M).tar.gz -C /overlay/upper/ /overlay/upper/
+```
 
 __Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto__
 ```
