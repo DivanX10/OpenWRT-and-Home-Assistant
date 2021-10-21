@@ -8,6 +8,10 @@ __На всякий случай можете сделать полный бэк
 ```
 tar cvz -f /tmp/backup_$(date +%d-%m-20%y_%H-%M).tar.gz -C /overlay/upper/ /overlay/upper/
 ```
+__Удаление всех файлов и сброс шлюза к заводским настройкам__
+```
+rm -rf /overlay/upper/.* /overlay/upper/* && reboot
+```
 
 __Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto__
 ```
