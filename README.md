@@ -24,7 +24,7 @@ __Удаление только Home Assistant. Не удаляет зависи
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_python3.9_delete.sh -O - | sh
 ```
 
-__Полное удаление. Удаляет Home Assistant и зависымые пакеты.__
+__Полное удаление. Удаляет Home Assistant и зависимые пакеты.__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/homeassistant_full_delete.sh -O - | sh
 ```
