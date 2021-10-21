@@ -42,7 +42,6 @@ if [ $(ps | grep "[/]usr/bin/hass" | wc -l) -gt 0 ]; then
   echo "Stop running process of Home Assistant to free RAM for installation";
   exit 1;
 fi
-
 echo "Install base requirements from feed..."
 opkg update
 
@@ -126,32 +125,33 @@ wget https://raw.githubusercontent.com/pypa/setuptools/v56.0.0/_distutils_hack/o
 
 echo "Install base requirements from PyPI..."
 pip3 install wheel
-cat << EOF > /tmp/requirements.txt
-tzdata==2021.2.post0  # 2021.6+ requirement
-$(version atomicwrites)  # nabucasa dep
-$(version snitun)  # nabucasa dep
-$(version astral)
-$(version awesomeversion)
-$(version PyJWT)
-$(version voluptuous)
-$(version voluptuous-serialize)
-$(version sqlalchemy)  # recorder requirement
+cat << "EOF" > /tmp/requirements.txt
+astral==2.2
+atomicwrites==1.4.0
+awesomeversion==21.4.0
+PyJWT==1.7.1
+voluptuous==0.12.1
+voluptuous-serialize==2.4.0
+snitun==0.21  # nabucasa dep
+tzdata==2021.1  # 2021.6 requirement
+sqlalchemy==1.4.23  # recorder requirement
 # homeassistant manifest requirements
-$(version async-upnp-client)
-$(version PyQRCode)
-$(version pyMetno)
-$(version mutagen)
-$(version pyotp)
-$(version gTTS)
-$(version aioesphomeapi)
-$(version zeroconf)
+async-upnp-client==0.20.0
+PyQRCode==1.2.1
+pyMetno==0.8.3
+mutagen==1.45.1
+pyotp==2.3.0
+gTTS==2.2.3
+pyroute2==0.5.18
+aioesphomeapi==8.0.0
+zeroconf==0.36.2
 # zha requirements
-$(version pyserial)
-$(version zha-quirks)
-$(version zigpy)
+pyserial==3.5
+zha-quirks==0.0.60
+zigpy==0.37.1
 https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip  # include raw mode support
 # fixed dependencies
-python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
+python-jose[cryptography]==3.2.0  # (pycognito) 3.3.0 is not compatible with the python3-cryptography in the feed
 EOF
 
 pip3 install -r /tmp/requirements.txt
@@ -280,7 +280,6 @@ mv \
   esphome \
   fan \
   frontend \
-  geo_location \
   google_assistant \
   google_translate \
   group \
@@ -320,7 +319,6 @@ mv \
   person \
   python_script \
   recorder \
-  remote \
   rest \
   safe_mode \
   scene \
@@ -356,10 +354,17 @@ mv \
   workday \
   xiaomi_aqara \
   xiaomi_miio \
-  yeelight \
   zeroconf \
   zha \
   zone \
+  yeelight \
+  wled \
+  local_ip \
+  shell_command \
+  command_line \
+  uptime \
+  season \
+  moon \
   ../components
 cd ..
 rm -rf components-orig
@@ -400,9 +405,9 @@ sed -i 's/"usb",//' default_config/manifest.json
 cd ../..
 sed -i 's/    "/    # "/' homeassistant/generated/config_flows.py
 sed -i 's/    # "mqtt"/    "mqtt"/' homeassistant/generated/config_flows.py
-sed -i 's/    # "zha"/    "zha"/' homeassistant/generated/config_flows.py
-sed -i 's/    # "esphome"/    "esphome"/' homeassistant/generated/config_flows.py
-sed -i 's/    # "met"/    "met"/' homeassistant/generated/config_flows.py
+sed -i 's/    # "yeelight"/    "yeelight"/' homeassistant/generated/config_flows.py
+sed -i 's/    # "wled"/    "wled"/' homeassistant/generated/config_flows.py
+sed -i 's/    # "local_ip"/    "local_ip"/' homeassistant/generated/config_flows.py
 
 # disabling all zeroconf services
 sed -i 's/^    "_/    "_disabled_/' homeassistant/generated/zeroconf.py
@@ -473,7 +478,6 @@ start_service()
     procd_set_param stderr 1
     procd_close_instance
 }
-
 EOF
 chmod +x /etc/init.d/homeassistant
 /etc/init.d/homeassistant enable
@@ -481,5 +485,3 @@ echo "Home Assistant is installed."
 sleep 5
 /etc/init.d/homeassistant start
 echo "Home Assistant is launched, please wait."
-
-
