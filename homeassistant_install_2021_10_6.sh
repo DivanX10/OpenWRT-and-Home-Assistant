@@ -307,6 +307,7 @@ mv \
   logbook \
   logger \
   lovelace \
+  local_ip \
   manual \
   map \
   media_player \
