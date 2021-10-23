@@ -354,6 +354,7 @@ mv \
   usb \
   vacuum \
   wake_on_lan \
+  wled \
   water_heater \
   weather \
   webhook \
