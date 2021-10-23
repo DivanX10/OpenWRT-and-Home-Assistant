@@ -307,6 +307,7 @@ mv \
   logbook \
   logger \
   lovelace \
+  local_ip \
   manual \
   map \
   media_player \
@@ -359,6 +360,7 @@ mv \
   webhook \
   websocket_api \
   workday \
+  wled \
   xiaomi_aqara \
   xiaomi_miio \
   yeelight \
