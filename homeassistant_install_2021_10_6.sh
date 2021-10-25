@@ -374,6 +374,8 @@ mv \
   uptime \
   season \
   moon \
+  min_max \
+  systemmonitor \
     
   ../components
 cd ..
