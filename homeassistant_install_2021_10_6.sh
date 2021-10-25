@@ -129,6 +129,10 @@ wget https://raw.githubusercontent.com/pypa/setuptools/v56.0.0/_distutils_hack/o
 
 echo "Install base requirements from PyPI..."
 pip3 install wheel
+pip install wled==0.8.0
+pip install watchdog==2.1.5
+pip install pyturbojpeg==1.6.1
+
 cat << EOF > /tmp/requirements.txt
 tzdata==2021.2.post0  # 2021.6+ requirement
 
