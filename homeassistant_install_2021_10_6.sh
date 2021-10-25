@@ -367,6 +367,14 @@ mv \
   zeroconf \
   zha \
   zone \
+  folder \
+  folder_watcher \
+  shell_command \
+  command_line \
+  uptime \
+  season \
+  moon \
+    
   ../components
 cd ..
 rm -rf components-orig
