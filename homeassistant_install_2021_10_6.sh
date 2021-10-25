@@ -114,7 +114,8 @@ opkg install --force-overwrite \
   python3-pillow \
   python3-cryptodomex \
   python3-slugify \
-  python3-psutil
+  python3-psutil \
+  python3-numpy
 
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
