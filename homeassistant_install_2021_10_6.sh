@@ -132,6 +132,8 @@ pip3 install wheel
 pip install wled==0.8.0
 pip install watchdog==2.1.5
 pip install pyturbojpeg==1.6.1
+pip install emoji==1.5.0
+pip install pyMetno==0.8.3
 
 cat << EOF > /tmp/requirements.txt
 tzdata==2021.2.post0  # 2021.6+ requirement
