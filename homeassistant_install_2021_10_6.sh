@@ -151,6 +151,10 @@ $(version pyotp)
 $(version gTTS)
 $(version aioesphomeapi)
 $(version zeroconf)
+$(version wled)
+$(version watchdog)
+$(version pyturbojpeg)
+$(version emoji)
 
 # zha requirements
 $(version pyserial)
