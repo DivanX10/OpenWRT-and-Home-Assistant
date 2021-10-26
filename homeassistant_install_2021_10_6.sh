@@ -50,7 +50,8 @@ opkg update&&
 opkg install --force-overwrite \
   python3-base \
   python3-pynacl \
-  python3-ciso8601
+  python3-ciso8601 \
+  python3-numpy
 
 opkg update&&
 opkg install --force-overwrite \
@@ -114,8 +115,8 @@ opkg install --force-overwrite \
   python3-pillow \
   python3-cryptodomex \
   python3-slugify \
-  python3-psutil \
-  python3-numpy
+  python3-psutil
+  
 
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
