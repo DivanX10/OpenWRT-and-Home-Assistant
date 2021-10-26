@@ -51,7 +51,9 @@ opkg install --force-overwrite \
   python3-base \
   python3-pynacl \
   python3-ciso8601 \
-  python3-numpy
+  python3-numpy \
+  python3-pip \
+  python3-packages
 
 opkg update&&
 opkg install --force-overwrite \
