@@ -479,12 +479,14 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+mobile_app:
 EOF
 
   touch /etc/homeassistant/groups.yaml
   touch /etc/homeassistant/automations.yaml
   touch /etc/homeassistant/scripts.yaml
   touch /etc/homeassistant/scenes.yaml
+  touch /etc/homeassistant/secrets.yaml
 fi
 
 echo "Create starting script in init.d"
