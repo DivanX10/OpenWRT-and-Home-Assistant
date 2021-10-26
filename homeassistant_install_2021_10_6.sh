@@ -53,11 +53,7 @@ opkg install --force-overwrite \
   python3-ciso8601 \
   python3-numpy \
   python3-pip \
-  python3-packages
-
-opkg update&&
-opkg install --force-overwrite \
-  patch \
+  python3-packages \
   python3-aiohttp \
   python3-aiohttp-cors \
   python3-async-timeout \
