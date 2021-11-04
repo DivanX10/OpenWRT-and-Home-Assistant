@@ -54,4 +54,10 @@ __Установка Home Assistant версии 2021.10.7__
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_10_7.sh -O - | sh
 ```
 
+__Установка Home Assistant версии 2021.11.0__
+```
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_11_0.sh -O - | sh
+```
+
+
 
