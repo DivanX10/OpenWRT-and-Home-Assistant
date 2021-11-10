@@ -131,7 +131,6 @@ wget https://raw.githubusercontent.com/pypa/setuptools/v56.0.0/_distutils_hack/o
 
 echo "Install base requirements from PyPI..."
 pip3 install wheel
-pip install packaging
 cat << EOF > /tmp/requirements.txt
 tzdata==2021.2.post0  # 2021.6+ requirement
 
@@ -167,6 +166,8 @@ https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af
 # fixed dependencies
 python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
 EOF
+
+pip install packaging
 
 pip3 install -r /tmp/requirements.txt
 
