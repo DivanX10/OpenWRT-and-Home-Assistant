@@ -131,6 +131,7 @@ wget https://raw.githubusercontent.com/pypa/setuptools/v56.0.0/_distutils_hack/o
 
 echo "Install base requirements from PyPI..."
 pip3 install wheel
+pip install packaging
 cat << EOF > /tmp/requirements.txt
 tzdata==2021.2.post0  # 2021.6+ requirement
 
