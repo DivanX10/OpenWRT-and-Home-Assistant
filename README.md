@@ -1,4 +1,6 @@
-# Скрипты для OpenWRT 21. Установка, удаление и бэкап Home Assistant
+# OpenWRT 21. Установка, удаление и бэкап Home Assistant
+
+# Cкрипты для установки Home Assistant находятся в разделе [Releases](https://github.com/DivanX10/OpenWRT-and-Home-Assistant/releases)
 
 # Резервное копирование и удаление
 
@@ -18,7 +20,7 @@ __Делает бэкап папок Home Assistant + zigbee2mqtt + mosquitto__
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/autobackup.sh -O - | sh
 ```
 
-# Скрипты для удаления Home Assistant
+# Удаление Home Assistant
 
 __Удаление только Home Assistant. Не удаляет зависимые пакеты. Этот скрипт удаляет только сам Home Assistant и папки Home Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). Данный вариант подходит, если вы хотите установить Home Assistant другой версии__ 
 
@@ -33,52 +35,9 @@ wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/
 
 
 
-# Скрипты для установки Home Assistant
 
-__Установка Home Assistant версии 2021.1.5__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021.1.5.sh -O - | sh
-```
 
-__Установка Home Assistant версии 2021.6.3__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021.6.3.sh -O - | sh
-```
 
-__Установка Home Assistant версии 2021.6.5__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021.6.5.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.9.3__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_9_3.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.9.5__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_9_5.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.10.2__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_10_2.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.10.6__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_10_6.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.10.7__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_10_7.sh -O - | sh
-```
-
-__Установка Home Assistant версии 2021.11.0__
-```
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_install_2021_11_0.sh -O - | sh
-```
 
 
 
