@@ -77,6 +77,7 @@ opkg install --force-overwrite \
   python3-defusedxml \
   python3-distutils \
   python3-docutils \
+  python3-gdbm \
   python3-email \
   python3-greenlet \
   python3-idna \
@@ -103,6 +104,7 @@ opkg install --force-overwrite \
   python3-setuptools \
   python3-six \
   python3-sqlite3 \
+  python3-sqlalchemy \
   python3-unittest \
   python3-urllib \
   python3-urllib3 \
@@ -110,6 +112,7 @@ opkg install --force-overwrite \
   python3-yaml \
   python3-yarl \
   python3-netdisco \
+  python3-zeroconf \
   python3-pillow \
   python3-cryptodomex \
   python3-slugify \
