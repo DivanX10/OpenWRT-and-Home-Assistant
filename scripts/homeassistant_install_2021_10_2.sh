@@ -50,11 +50,10 @@ opkg update&&
 opkg install --force-overwrite \
   python3-base \
   python3-pynacl \
-  python3-ciso8601
-
-opkg update&&
-opkg install --force-overwrite \
-  patch \
+  python3-ciso8601 \
+  python3-numpy \
+  python3-pip \
+  python3-packages \
   python3-aiohttp \
   python3-aiohttp-cors \
   python3-async-timeout \
@@ -78,6 +77,7 @@ opkg install --force-overwrite \
   python3-defusedxml \
   python3-distutils \
   python3-docutils \
+  python3-gdbm \
   python3-email \
   python3-greenlet \
   python3-idna \
@@ -104,6 +104,7 @@ opkg install --force-overwrite \
   python3-setuptools \
   python3-six \
   python3-sqlite3 \
+  python3-sqlalchemy \
   python3-unittest \
   python3-urllib \
   python3-urllib3 \
@@ -111,9 +112,12 @@ opkg install --force-overwrite \
   python3-yaml \
   python3-yarl \
   python3-netdisco \
+  python3-zeroconf \
   python3-pillow \
   python3-cryptodomex \
-  python3-slugify
+  python3-slugify \
+  python3-psutil
+  
 
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
@@ -129,7 +133,6 @@ echo "Install base requirements from PyPI..."
 pip3 install wheel
 cat << EOF > /tmp/requirements.txt
 tzdata==2021.2.post0  # 2021.6+ requirement
-
 $(version atomicwrites)  # nabucasa dep
 $(version snitun)  # nabucasa dep
 $(version astral)
@@ -138,7 +141,6 @@ $(version PyJWT)
 $(version voluptuous)
 $(version voluptuous-serialize)
 $(version sqlalchemy)  # recorder requirement
-
 # homeassistant manifest requirements
 $(version async-upnp-client)
 $(version PyQRCode)
@@ -148,16 +150,20 @@ $(version pyotp)
 $(version gTTS)
 $(version aioesphomeapi)
 $(version zeroconf)
-
+$(version wled)
+$(version watchdog)
+$(version pyturbojpeg)
+$(version emoji)
 # zha requirements
 $(version pyserial)
 $(version zha-quirks)
 $(version zigpy)
 https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip  # include raw mode support
-
 # fixed dependencies
 python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
 EOF
+
+pip install packaging
 
 pip3 install -r /tmp/requirements.txt
 
@@ -355,18 +361,27 @@ mv \
   usb \
   vacuum \
   wake_on_lan \
+  wled \
   water_heater \
   weather \
   webhook \
   websocket_api \
   workday \
-  wled \
   xiaomi_aqara \
   xiaomi_miio \
   yeelight \
   zeroconf \
   zha \
   zone \
+  folder \
+  folder_watcher \
+  shell_command \
+  command_line \
+  uptime \
+  season \
+  moon \
+  min_max \
+  systemmonitor \
   ../components
 cd ..
 rm -rf components-orig
@@ -410,6 +425,7 @@ sed -i 's/    # "mqtt"/    "mqtt"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "yeelight"/    "yeelight"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "wled"/    "wled"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "local_ip"/    "local_ip"/' homeassistant/generated/config_flows.py
+sed -i 's/    # "mobile_app"/    "mobile_app"/' homeassistant/generated/config_flows.py
 
 # disabling all zeroconf services
 sed -i 's/^    "_/    "_disabled_/' homeassistant/generated/zeroconf.py
@@ -448,16 +464,13 @@ if [ ! -f '/etc/homeassistant/configuration.yaml' ]; then
   cat << "EOF" > /etc/homeassistant/configuration.yaml
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-
 # Text to speech
 tts:
   - platform: google_translate
     language: ru
-
 recorder:
   purge_keep_days: 2
   db_url: 'sqlite:///:memory:'
-
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -468,15 +481,14 @@ EOF
   touch /etc/homeassistant/automations.yaml
   touch /etc/homeassistant/scripts.yaml
   touch /etc/homeassistant/scenes.yaml
+  touch /etc/homeassistant/secrets.yaml
 fi
 
 echo "Create starting script in init.d"
 cat << "EOF" > /etc/init.d/homeassistant
 #!/bin/sh /etc/rc.common
-
 START=99
 USE_PROCD=1
-
 start_service()
 {
     procd_open_instance
