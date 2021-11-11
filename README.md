@@ -1,6 +1,6 @@
 # OpenWRT 21. Установка, удаление и бэкап Home Assistant
 
-# Cкрипты для установки Home Assistant находятся в разделе [Releases](https://github.com/DivanX10/OpenWRT-and-Home-Assistant/releases)
+__Cкрипты для установки Home Assistant находятся в разделе [Releases](https://github.com/DivanX10/OpenWRT-and-Home-Assistant/releases)__
 
 # Резервное копирование и удаление
 
