@@ -482,6 +482,12 @@ recorder:
   purge_keep_days: 2
   db_url: 'sqlite:///:memory:'
 
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:square-edit-outline
+    url: http://${IP}:3218
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
