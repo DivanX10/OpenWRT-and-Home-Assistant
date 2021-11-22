@@ -294,6 +294,7 @@ mv \
   energy \
   esphome \
   fan \
+  file \
   frontend \
   geo_location \
   google_assistant \
