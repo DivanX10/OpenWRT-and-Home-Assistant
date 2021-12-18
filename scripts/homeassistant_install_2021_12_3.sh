@@ -4,15 +4,28 @@
 set -e
 
 OPENWRT_VERSION=${OPENWRT_VERSION:-21.02}
-PYTHON_VERSION="3.9"
-if [ "${OPENWRT_VERSION}" == "19.07" ]; then
-  PYTHON_VERSION="3.7"
+HOMEASSISTANT_MAJOR_VERSION="2021.12.3"
+
+get_ha_version()
+{
+  wget -q -O- https://pypi.org/simple/homeassistant/ | grep ${HOMEASSISTANT_MAJOR_VERSION} | tail -n 1 | cut -d "-" -f2 | cut -d "." -f1,2,3
+}
+
+HOMEASSISTANT_VERSION=$(get_ha_version)
+
+if [ "${HOMEASSISTANT_VERSION}" == "" ]; then
+  echo "Incorrect Home Assistant version. Exiting ...";
+  exit 1;
 fi
-HOMEASSISTANT_VERSION="2021.12.3"
 
 echo "=========================================="
 echo " Installing Home Assistant ${HOMEASSISTANT_VERSION} ..."
 echo "=========================================="
+
+get_python_version()
+{
+  opkg list | grep python3-base | head -n 1 | grep -Eo '\d+\.\d+'
+}
 
 get_version()
 {
@@ -24,6 +37,11 @@ version()
 {
   local pkg=$1
   echo "$pkg==$(get_version $pkg)"
+}
+
+is_lumi_gateway()
+{
+  ls -1 /dev/ttymxc1 2>/dev/null || echo ''
 }
 
 wget -q https://raw.githubusercontent.com/home-assistant/core/${HOMEASSISTANT_VERSION}/homeassistant/package_constraints.txt -O - > /tmp/ha_requirements.txt
@@ -44,7 +62,11 @@ if [ $(ps | grep "[/]usr/bin/hass" | wc -l) -gt 0 ]; then
 fi
 
 echo "Install base requirements from feed..."
-opkg update&&
+opkg update
+
+PYTHON_VERSION=$(get_python_version)
+echo "Detected Python ${PYTHON_VERSION}"
+LUMI_GATEWAY=$(is_lumi_gateway)
 
 # Install them first to check Openlumi feed id added
 opkg install --force-overwrite \
@@ -117,7 +139,6 @@ opkg install --force-overwrite \
   python3-cryptodomex \
   python3-slugify \
   python3-psutil
-  
 
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
@@ -152,28 +173,39 @@ $(version pyotp)
 $(version gTTS)
 $(version aioesphomeapi)
 $(version zeroconf)
-$(version wled)
-$(version watchdog)
-$(version pyturbojpeg)
-$(version emoji)
+$(version wled)	
+$(version watchdog)	
+$(version pyturbojpeg)	
+$(version emoji)	
 
+# zha requirements	
+$(version pyserial)	
+$(version zha-quirks)	
+$(version zigpy)
+
+
+# fixed dependencies
+python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
+
+EOF
+
+if [ $LUMI_GATEWAY ]; then
+  cat << EOF >> /tmp/requirements.txt
 # zha requirements
 $(version pyserial)
 $(version zha-quirks)
 $(version zigpy)
 https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip  # include raw mode support
-
-# fixed dependencies
-python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
 EOF
-
-pip install packaging
+fi
 
 pip3 install -r /tmp/requirements.txt
 
-# show internal serial ports for Xiaomi Gateway
-sed -i 's/ttyXRUSB\*/ttymxc[1-9]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
-sed -i 's/if info.subsystem != "platform"]/]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
+if [ $LUMI_GATEWAY ]; then
+  # show internal serial ports for Xiaomi Gateway
+  sed -i 's/ttyXRUSB\*/ttymxc[1-9]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
+  sed -i 's/if info.subsystem != "platform"]/]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
+fi
 
 # fix deps
 sed -i 's/urllib3<1.25,>=1.20/urllib3>=1.20/' /usr/lib/python${PYTHON_VERSION}/site-packages/botocore-*.egg-info/requires.txt
@@ -206,13 +238,14 @@ rm -rf python-ipp-${IPP_VER} python-ipp-${IPP_VER}.tgz
 echo "Installing python-miio..."
 tar -zxf python-miio-${PYTHON_MIIO_VER}.tar.gz
 cd python-miio-${PYTHON_MIIO_VER}
-sed -i 's/cryptography>=3,<4/cryptography>=2,<4/' setup.py
-sed -i 's/click>=7,<8/click/' setup.py
+sed -i 's/cryptography[0-9><=]*/cryptography>=2/' setup.py
+sed -i 's/click[0-9><=]*/click/' setup.py
+sed -i "s/'extras_require'/# 'extras_require'/" setup.py
 find . -type f -exec touch {} +
 python3 setup.py install
 cd ..
 rm -rf python-miio-${PYTHON_MIIO_VER} python-miio-${PYTHON_MIIO_VER}.tar.gz
-pip3 install PyXiaomiGateway==0.13.4
+pip3 install $(version PyXiaomiGateway)
 
 echo "Install hass_nabucasa and ha-frontend..."
 wget https://github.com/NabuCasa/hass-nabucasa/archive/${NABUCASA_VER}.tar.gz -O - > hass-nabucasa-${NABUCASA_VER}.tar.gz
@@ -388,6 +421,10 @@ mv \
   min_max \
   systemmonitor \
   ../components
+
+if [ $LUMI_GATEWAY ]; then
+  mv zha ../components
+fi
 cd ..
 rm -rf components-orig
 cd components
@@ -404,19 +441,22 @@ sed -i 's/netdisco==[0-9\.]*/netdisco/' discovery/manifest.json
 sed -i 's/PyNaCl==[0-9\.]*/PyNaCl/' mobile_app/manifest.json
 sed -i 's/defusedxml==[0-9\.]*/defusedxml/' ssdp/manifest.json
 sed -i 's/netdisco==[0-9\.]*/netdisco/' ssdp/manifest.json
-# remove unwanted zha requirements
-sed -i 's/"bellows==[0-9\.]*",//' zha/manifest.json
-sed -i 's/"zigpy-cc==[0-9\.]*",//' zha/manifest.json
-sed -i 's/"zigpy-deconz==[0-9\.]*",//' zha/manifest.json
-sed -i 's/"zigpy-xbee==[0-9\.]*",//' zha/manifest.json
-sed -i 's/"zigpy-znp==[0-9\.]*"//' zha/manifest.json
-sed -i 's/"zigpy-zigate==[0-9\.]*",/"zigpy-zigate"/' zha/manifest.json
-sed -i 's/import bellows.zigbee.application//' zha/core/const.py
-sed -i 's/import zigpy_cc.zigbee.application//' zha/core/const.py
-sed -i 's/import zigpy_deconz.zigbee.application//' zha/core/const.py
-sed -i 's/import zigpy_xbee.zigbee.application//' zha/core/const.py
-sed -i 's/import zigpy_znp.zigbee.application//' zha/core/const.py
-sed -i -e '/znp = (/,/)/d' -e '/ezsp = (/,/)/d' -e '/deconz = (/,/)/d' -e '/ti_cc = (/,/)/d' -e '/xbee = (/,/)/d' zha/core/const.py
+
+if [ $LUMI_GATEWAY ]; then
+  # remove unwanted zha requirements
+  sed -i 's/"bellows==[0-9\.]*",//' zha/manifest.json
+  sed -i 's/"zigpy-cc==[0-9\.]*",//' zha/manifest.json
+  sed -i 's/"zigpy-deconz==[0-9\.]*",//' zha/manifest.json
+  sed -i 's/"zigpy-xbee==[0-9\.]*",//' zha/manifest.json
+  sed -i 's/"zigpy-znp==[0-9\.]*"//' zha/manifest.json
+  sed -i 's/"zigpy-zigate==[0-9\.]*",/"zigpy-zigate"/' zha/manifest.json
+  sed -i 's/import bellows.zigbee.application//' zha/core/const.py
+  sed -i 's/import zigpy_cc.zigbee.application//' zha/core/const.py
+  sed -i 's/import zigpy_deconz.zigbee.application//' zha/core/const.py
+  sed -i 's/import zigpy_xbee.zigbee.application//' zha/core/const.py
+  sed -i 's/import zigpy_znp.zigbee.application//' zha/core/const.py
+  sed -i -e '/znp = (/,/)/d' -e '/ezsp = (/,/)/d' -e '/deconz = (/,/)/d' -e '/ti_cc = (/,/)/d' -e '/xbee = (/,/)/d' zha/core/const.py
+fi
 
 sed -i 's/"cloud",//' default_config/manifest.json
 sed -i 's/"dhcp",//' default_config/manifest.json
@@ -431,6 +471,9 @@ sed -i 's/    # "yeelight"/    "yeelight"/' homeassistant/generated/config_flows
 sed -i 's/    # "wled"/    "wled"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "local_ip"/    "local_ip"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "mobile_app"/    "mobile_app"/' homeassistant/generated/config_flows.py
+if [ $LUMI_GATEWAY ]; then
+  sed -i 's/    # "zha"/    "zha"/' homeassistant/generated/config_flows.py
+fi
 
 # disabling all zeroconf services
 sed -i 's/^    "_/    "_disabled_/' homeassistant/generated/zeroconf.py
@@ -443,6 +486,8 @@ sed -i 's/_disabled_miio./_miio./' homeassistant/generated/zeroconf.py
 
 # backport jinja2<3.0 decorator
 sed -i 's/from jinja2 import contextfunction, pass_context/from jinja2 import contextfunction, contextfilter as pass_context/' homeassistant/helpers/template.py
+# backport async_timout.timeout
+sed -i  's/def timeout(/timeout = async_timeout.timeout\n\ndef timeout1(/' homeassistant/async_timeout_backcompat.py || true
 
 sed -i 's/"installation_type": "Unknown"/"installation_type": "Home Assistant on OpenWrt"/' homeassistant/helpers/system_info.py
 sed -i 's/install_requires=REQUIRES/install_requires=[]/' setup.py
@@ -462,11 +507,12 @@ python3 setup.py install
 cd ../
 rm -rf homeassistant-${HOMEASSISTANT_VERSION}/
 
+IP=$(ip a | grep "inet " | cut -d " " -f6 | tail -1 | cut -d / -f1)
 
 if [ ! -f '/etc/homeassistant/configuration.yaml' ]; then
   mkdir -p /etc/homeassistant
   ln -s /etc/homeassistant /root/.homeassistant
-  cat << "EOF" > /etc/homeassistant/configuration.yaml
+  cat << EOF > /etc/homeassistant/configuration.yaml
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
@@ -503,6 +549,24 @@ start_service()
 {
     procd_open_instance
     procd_set_param command hass --config /etc/homeassistant --log-file /var/log/home-assistant.log --log-rotate-days 3
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_close_instance
+}
+EOF
+chmod +x /etc/init.d/homeassistant
+/etc/init.d/homeassistant enable
+
+cat << "EOF" > /etc/init.d/hass-configurator
+#!/bin/sh /etc/rc.common
+
+START=99
+USE_PROCD=1
+
+start_service()
+{
+    procd_open_instance
+    procd_set_param command hass-configurator -b /etc/homeassistant
     procd_set_param stdout 1
     procd_set_param stderr 1
     procd_close_instance
