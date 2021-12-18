@@ -178,26 +178,12 @@ $(version watchdog)
 $(version pyturbojpeg)	
 $(version emoji)	
 
-# zha requirements	
-$(version pyserial)	
-$(version zha-quirks)	
-$(version zigpy)
-
 
 # fixed dependencies
 python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
 
 EOF
 
-if [ $LUMI_GATEWAY ]; then
-  cat << EOF >> /tmp/requirements.txt
-# zha requirements
-$(version pyserial)
-$(version zha-quirks)
-$(version zigpy)
-https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip  # include raw mode support
-EOF
-fi
 
 pip3 install -r /tmp/requirements.txt
 
@@ -409,7 +395,6 @@ mv \
   xiaomi_miio \
   yeelight \
   zeroconf \
-  zha \
   zone \
   folder \
   folder_watcher \
@@ -422,9 +407,6 @@ mv \
   systemmonitor \
   ../components
 
-if [ $LUMI_GATEWAY ]; then
-  mv zha ../components
-fi
 cd ..
 rm -rf components-orig
 cd components
@@ -441,23 +423,6 @@ sed -i 's/netdisco==[0-9\.]*/netdisco/' discovery/manifest.json
 sed -i 's/PyNaCl==[0-9\.]*/PyNaCl/' mobile_app/manifest.json
 sed -i 's/defusedxml==[0-9\.]*/defusedxml/' ssdp/manifest.json
 sed -i 's/netdisco==[0-9\.]*/netdisco/' ssdp/manifest.json
-
-if [ $LUMI_GATEWAY ]; then
-  # remove unwanted zha requirements
-  sed -i 's/"bellows==[0-9\.]*",//' zha/manifest.json
-  sed -i 's/"zigpy-cc==[0-9\.]*",//' zha/manifest.json
-  sed -i 's/"zigpy-deconz==[0-9\.]*",//' zha/manifest.json
-  sed -i 's/"zigpy-xbee==[0-9\.]*",//' zha/manifest.json
-  sed -i 's/"zigpy-znp==[0-9\.]*"//' zha/manifest.json
-  sed -i 's/"zigpy-zigate==[0-9\.]*",/"zigpy-zigate"/' zha/manifest.json
-  sed -i 's/import bellows.zigbee.application//' zha/core/const.py
-  sed -i 's/import zigpy_cc.zigbee.application//' zha/core/const.py
-  sed -i 's/import zigpy_deconz.zigbee.application//' zha/core/const.py
-  sed -i 's/import zigpy_xbee.zigbee.application//' zha/core/const.py
-  sed -i 's/import zigpy_znp.zigbee.application//' zha/core/const.py
-  sed -i -e '/znp = (/,/)/d' -e '/ezsp = (/,/)/d' -e '/deconz = (/,/)/d' -e '/ti_cc = (/,/)/d' -e '/xbee = (/,/)/d' zha/core/const.py
-fi
-
 sed -i 's/"cloud",//' default_config/manifest.json
 sed -i 's/"dhcp",//' default_config/manifest.json
 sed -i 's/"mobile_app",//' default_config/manifest.json
@@ -471,9 +436,6 @@ sed -i 's/    # "yeelight"/    "yeelight"/' homeassistant/generated/config_flows
 sed -i 's/    # "wled"/    "wled"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "local_ip"/    "local_ip"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "mobile_app"/    "mobile_app"/' homeassistant/generated/config_flows.py
-if [ $LUMI_GATEWAY ]; then
-  sed -i 's/    # "zha"/    "zha"/' homeassistant/generated/config_flows.py
-fi
 
 # disabling all zeroconf services
 sed -i 's/^    "_/    "_disabled_/' homeassistant/generated/zeroconf.py
