@@ -468,9 +468,6 @@ sed -i 's/    # "wled"/    "wled"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "local_ip"/    "local_ip"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "mobile_app"/    "mobile_app"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "met"/    "met"/' homeassistant/generated/config_flows.py
-if [ $LUMI_GATEWAY ]; then
-  sed -i 's/    # "zha"/    "zha"/' homeassistant/generated/config_flows.py
-fi
 
 # disabling all zeroconf services
 sed -i 's/^    "_/    "_disabled_/' homeassistant/generated/zeroconf.py
