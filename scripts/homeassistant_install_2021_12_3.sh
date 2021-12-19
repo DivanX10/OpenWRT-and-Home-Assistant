@@ -134,7 +134,8 @@ opkg install \
   python3-netdisco \
   python3-pillow \
   python3-cryptodomex \
-  python3-slugify
+  python3-slugify \
+  python3-psutil
 
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
