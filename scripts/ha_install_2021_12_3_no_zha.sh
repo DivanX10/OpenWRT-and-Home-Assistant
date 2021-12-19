@@ -189,14 +189,6 @@ EOF
 
 pip3 install -r /tmp/requirements.txt
 
-if [ $LUMI_GATEWAY ]; then
-  # show internal serial ports for Xiaomi Gateway
-  sed -i 's/ttyXRUSB\*/ttymxc[1-9]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
-  sed -i 's/if info.subsystem != "platform"]/]/' /usr/lib/python${PYTHON_VERSION}/site-packages/serial/tools/list_ports_linux.py
-fi
-
-
-
 echo "Install hass_nabucasa and ha-frontend..."
 wget https://github.com/NabuCasa/hass-nabucasa/archive/${NABUCASA_VER}.tar.gz -O - > hass-nabucasa-${NABUCASA_VER}.tar.gz
 tar -zxf hass-nabucasa-${NABUCASA_VER}.tar.gz
