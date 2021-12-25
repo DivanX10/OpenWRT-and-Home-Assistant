@@ -34,6 +34,14 @@ __Удаление только Home Assistant. Не удаляет зависи
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_python3.9_delete.sh -O - | sh
 ```
 
+Тоже самое, что и выше, только с записью в лог файл. Файл `ha_delete.log` будет лежать здесь `/mnt/ha_delete.log`
+```
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_python3.9_delete.sh -O - | sh 2>&1 | tee /mnt/ha_delete.log
+
+```
+
+
+
 __Полное удаление. Удаляет Home Assistant и зависимые пакеты.__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_full_delete.sh -O - | sh
