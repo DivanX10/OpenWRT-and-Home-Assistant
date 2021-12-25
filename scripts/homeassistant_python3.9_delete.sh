@@ -3,7 +3,7 @@ set -e
 echo "Starting the Home Assistant removal"
 sleep 1
 /etc/init.d/homeassistant stop
-sleep 20
+sleep 10
 pip3 uninstall homeassistant -y
 rm -R /etc/homeassistant
 rm -R /usr/lib/python3.9/site-packages/hass_frontend*
