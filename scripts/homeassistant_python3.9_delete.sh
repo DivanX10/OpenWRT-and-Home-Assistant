@@ -12,4 +12,5 @@ rm -R /usr/lib/python3.9/site-packages/home_assistant_frontend*
 rm -R /root/.homeassistant
 rm -R /etc/init.d/homeassistant
 echo "Home Assistant was successfully deleted"
+sleep 5
 exit
