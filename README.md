@@ -28,7 +28,7 @@ wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/
 
 # Удаление Home Assistant
 
-__Удаление только Home Assistant. Не удаляет зависимые пакеты. Этот скрипт удаляет только сам Home Assistant и папки Home Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). Данный вариант подходит, если вы хотите установить Home Assistant другой версии__ 
+__Удаление только Home Assistant без записи в лог файл. Не удаляет зависимые пакеты. Этот скрипт удаляет только сам Home Assistant и папки Home Assistant. [Зависимые пакеты не удаляются - выделенно желтым](https://github.com/openlumi/homeassistant_on_openwrt/blob/21.02/ha_install.sh#L33-L182). Данный вариант подходит, если вы хотите установить Home Assistant другой версии__ 
 
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_python3.9_delete.sh -O - | sh
@@ -40,13 +40,18 @@ wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/
 
 ```
 
+***
 
-
-__Полное удаление. Удаляет Home Assistant и зависимые пакеты.__
+__Полное удаление без записи в лог файл. Удаляет Home Assistant и зависимые пакеты.__
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_full_delete.sh -O - | sh
 ```
 
+Полное удаление с записью в лог файл. Файл `ha_full_delete` будет лежать здесь `/mnt/ha_full_delete`
+```
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_full_delete.sh -O - | sh 2>&1 | tee /mnt/ha_full_delete.log
+
+```
 
 
 
