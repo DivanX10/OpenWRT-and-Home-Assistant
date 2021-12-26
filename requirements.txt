@@ -7,8 +7,25 @@ voluptuous-serialize
 snitun
 tzdata
 sqlalchemy
-
-# homeassistant manifest requirements
+aiohttp
+async_timeout
+attrs
+backports.zoneinfo;python_version<"3.9"
+bcrypt
+certifi>=2021.5.30
+ciso8601
+httpx
+ifaddr
+jinja2
+PyJWT
+cryptography
+pip>=8.0.3,<20.3
+python-slugify
+pyyaml
+requests
+voluptuous
+voluptuous-serialize
+yarl
 async-upnp-client
 PyQRCode
 pyMetno
@@ -18,12 +35,6 @@ gTTS
 pyroute2
 aioesphomeapi
 zeroconf
-
-# zha requirements
 pyserial
 zha-quirks
 zigpy
-https://github.com/zigpy/zigpy-zigate/archive/8772221faa7dfbcd31a3bba6e548c356af9faa0c.zip
-
-# fixed dependencies
-python-jose[cryptography]
