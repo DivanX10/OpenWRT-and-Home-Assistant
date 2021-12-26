@@ -13,7 +13,7 @@ rm -R /root/.homeassistant
 rm -R /etc/init.d/homeassistant
 echo "Home Assistant was successfully deleted"
 sleep 2
-python -m pip uninstall -r -y /tmp/requirements_all.txt
+python -m pip uninstall -r /tmp/requirements_all.txt -y
 echo "The dependent packages have been removed. Home Assistant has been completely removed"
 sleep 2
 exit
