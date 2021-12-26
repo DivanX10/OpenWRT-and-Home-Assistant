@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 echo "Starting the Home Assistant removal"
-/etc/init.d/homeassistant stop
-/etc/init.d/homeassistant disable
+/etc/init.d/homeassistant stop&&
+/etc/init.d/homeassistant disable&&
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/files/requirements_all.txt -O /tmp/requirements_all.txt
 pip3 uninstall homeassistant -y
 rm -R /etc/homeassistant
