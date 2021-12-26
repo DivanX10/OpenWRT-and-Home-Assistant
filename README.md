@@ -50,8 +50,17 @@ wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/
 Полное удаление с записью в лог файл. Файл `ha_full_delete` будет лежать здесь `/mnt/ha_full_delete`
 ```
 wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/homeassistant_full_delete.sh -O - | sh 2>&1 | tee /mnt/ha_full_delete.log
-
 ```
+
+***
+
+**Удаляем все зависимые пакеты для Home Assistant**
+
+Это нужно, если вы удалили Home Assistant без удаления зависымых пакетов
+```
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/scripts/removing_packages.sh -O - | sh
+```
+
 
 
 
