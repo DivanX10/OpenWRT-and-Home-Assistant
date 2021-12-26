@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 echo "Starting the Home Assistant removal"
 /etc/init.d/homeassistant stop
 /etc/init.d/homeassistant disable
