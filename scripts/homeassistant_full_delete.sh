@@ -1,20 +1,20 @@
 #!/bin/bash
+set -e
 echo "Starting the Home Assistant removal"
-sleep 1
-/etc/init.d/homeassistant stop&&
-wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/requirements.txt -O /tmp/requirements.txt&&
-sleep 5
-pip3 uninstall homeassistant -y&&
-rm -R /etc/homeassistant&&
-rm -R /usr/lib/python3.9/site-packages/hass_frontend*&&
-rm -R /usr/lib/python3.9/site-packages/hass_nabucasa*&&
-rm -R /usr/lib/python3.9/site-packages/home_assistant_frontend*&&
-rm -R /root/.homeassistant&&
-rm -R /etc/init.d/homeassistant&&
+/etc/init.d/homeassistant stop
+/etc/init.d/homeassistant disable
+wget https://raw.githubusercontent.com/DivanX10/OpenWRT-and-Home-Assistant/main/requirements.txt -O /tmp/requirements.txt
+pip3 uninstall homeassistant -y
+rm -R /etc/homeassistant
+rm -R /usr/lib/python3.9/site-packages/hass_frontend*
+rm -R /usr/lib/python3.9/site-packages/hass_nabucasa*
+rm -R /usr/lib/python3.9/site-packages/home_assistant_frontend*
+rm -R /root/.homeassistant
+rm -R /etc/init.d/homeassistant
 echo "Home Assistant was successfully deleted"
-sleep 5
+sleep 2
 echo "Deleting dependent packages"
-opkg update&&
+opkg update
 opkg remove --force-depends \
   patch \
   python3-aiohttp \
@@ -75,9 +75,9 @@ opkg remove --force-depends \
   python3-netdisco \
   python3-pillow \
   python3-cryptodomex \
-  python3-slugify&&
-sleep 2
-pip uninstall -r /tmp/requirements.txt -y&&
+  python3-slugify
+  
+pip uninstall -r /tmp/requirements.txt -y
 sleep 2
 echo "The dependent packages have been removed. Home Assistant has been completely removed"
 sleep 2
