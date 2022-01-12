@@ -19,7 +19,7 @@ ifaddr
 jinja2
 PyJWT
 cryptography
-pip>=8.0.3,<20.3
+pip>=8.0.3,<21.1
 python-slugify
 pyyaml
 requests
