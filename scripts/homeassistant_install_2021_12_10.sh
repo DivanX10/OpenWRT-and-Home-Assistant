@@ -143,6 +143,7 @@ opkg install --force-overwrite \
   python3-slugify \
   python3-psutil
 
+
 # openwrt master doesn't have this package
 opkg install python3-gdbm || true
 
@@ -180,6 +181,9 @@ $(version wled)
 $(version watchdog)
 $(version pyturbojpeg)
 $(version emoji)
+$(version python-telegram-bot)
+$(version yeelight)
+
 
 # fixed dependencies
 python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
