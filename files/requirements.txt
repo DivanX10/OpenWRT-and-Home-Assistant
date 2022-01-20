@@ -40,5 +40,4 @@ zha-quirks
 zigpy
 watchdog
 wheel
-python-telegram-bot
-yeelight
+
