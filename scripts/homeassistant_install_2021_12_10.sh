@@ -421,6 +421,8 @@ mv \
   moon \
   min_max \
   systemmonitor \
+  ping \ 
+  nut \
   ../components
 
 if [ $LUMI_GATEWAY ]; then
