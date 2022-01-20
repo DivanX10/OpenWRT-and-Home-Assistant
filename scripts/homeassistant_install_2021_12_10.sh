@@ -183,13 +183,11 @@ $(version pyturbojpeg)
 $(version emoji)
 $(version python-telegram-bot)
 $(version yeelight)
+$(version httpx)
 
 
 # fixed dependencies
 python-jose[cryptography]==3.2.0  # (pycognito dep) 3.3.0 is not compatible with the python3-cryptography in the feed
-
-# extra services
-pip install httpx
 
 EOF
 
