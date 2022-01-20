@@ -183,6 +183,7 @@ $(version pyturbojpeg)
 $(version emoji)
 $(version python-telegram-bot)
 $(version yeelight)
+$(version httpx)
 
 
 # fixed dependencies
