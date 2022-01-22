@@ -315,13 +315,13 @@ mv \
   binary_sensor \
   blueprint \
   brother \
-  button \
   camera \
   climate \
   cloud \
   config \
   counter \
   cover \
+  command_line \
   default_config \
   device_automation \
   device_tracker \
@@ -330,7 +330,10 @@ mv \
   energy \
   esphome \
   fan \
+  file \
   frontend \
+  folder \
+  folder_watcher \
   geo_location \
   google_assistant \
   google_translate \
@@ -353,6 +356,7 @@ mv \
   logbook \
   logger \
   lovelace \
+  local_ip \
   manual \
   map \
   media_player \
@@ -362,15 +366,18 @@ mv \
   mpd \
   mqtt \
   my \
+  moon \
+  min_max \
   network \
   notify \
   number \
+  nut \
   onboarding \
   panel_custom \
-  panel_iframe \
   persistent_notification \
   person \
   python_script \
+  ping \
   recorder \
   remote \
   rest \
@@ -388,6 +395,9 @@ mv \
   switch \
   system_health \
   system_log \
+  shell_command \
+  season \
+  systemmonitor \
   tag \
   telegram \
   telegram_bot \
@@ -398,9 +408,11 @@ mv \
   tts \
   updater \
   upnp \
+  uptime \
   usb \
   vacuum \
   wake_on_lan \
+  wled \
   water_heater \
   weather \
   webhook \
