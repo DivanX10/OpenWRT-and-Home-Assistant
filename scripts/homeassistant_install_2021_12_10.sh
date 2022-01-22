@@ -315,6 +315,7 @@ mv \
   binary_sensor \
   blueprint \
   brother \
+  button \
   camera \
   climate \
   cloud \
@@ -329,7 +330,6 @@ mv \
   energy \
   esphome \
   fan \
-  file \
   frontend \
   geo_location \
   google_assistant \
@@ -353,7 +353,6 @@ mv \
   logbook \
   logger \
   lovelace \
-  local_ip \
   manual \
   map \
   media_player \
@@ -368,6 +367,7 @@ mv \
   number \
   onboarding \
   panel_custom \
+  panel_iframe \
   persistent_notification \
   person \
   python_script \
@@ -401,7 +401,6 @@ mv \
   usb \
   vacuum \
   wake_on_lan \
-  wled \
   water_heater \
   weather \
   webhook \
@@ -412,17 +411,6 @@ mv \
   yeelight \
   zeroconf \
   zone \
-  folder \
-  folder_watcher \
-  shell_command \
-  command_line \
-  uptime \
-  season \
-  moon \
-  min_max \
-  systemmonitor \
-  ping \ 
-  nut \
   ../components
 
 if [ $LUMI_GATEWAY ]; then
