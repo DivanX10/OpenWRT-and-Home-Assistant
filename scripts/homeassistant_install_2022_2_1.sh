@@ -46,7 +46,7 @@ is_lumi_gateway()
 
 wget -q https://raw.githubusercontent.com/home-assistant/core/${HOMEASSISTANT_VERSION}/homeassistant/package_constraints.txt -O - > /tmp/ha_requirements.txt
 wget -q https://raw.githubusercontent.com/home-assistant/core/${HOMEASSISTANT_VERSION}/requirements.txt -O - >> /tmp/ha_requirements.txt
-wget -q https://raw.githubusercontent.com/home-assistant/core/${HOMEASSISTANT_VERSION}/requirements_all.txt -O - >> /tmp/ha_requirements.txt
+wget -q https://raw.githubusercontent.com/home-assistant/core/${HOMEASSISTANT_VERSION}/requirements_all_core-2022_2_1.txt -O - >> /tmp/ha_requirements.txt
 # now we can fetch nabucasa version and its deps
 wget -q https://raw.githubusercontent.com/NabuCasa/hass-nabucasa/$(get_version hass-nabucasa)/setup.py -O - | grep '[>=]=' | sed -E 's/\s*"(.*)",?/\1/' >> /tmp/ha_requirements.txt
 
@@ -516,7 +516,7 @@ tts:
     language: ru
 
 recorder:
-  purge_keep_days: 2
+  purge_keep_days: 1
   db_url: 'sqlite:///:memory:'
 
 group: !include groups.yaml
