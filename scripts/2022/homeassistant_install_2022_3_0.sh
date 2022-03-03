@@ -537,6 +537,7 @@ start_service()
     procd_set_param command hass --config /etc/homeassistant --log-file /var/log/home-assistant.log --log-rotate-days 3
     procd_set_param stdout 1
     procd_set_param stderr 1
+    procd_set_param respawn 3600 5 10
     procd_close_instance
 }
 EOF
