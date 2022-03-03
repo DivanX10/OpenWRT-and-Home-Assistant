@@ -454,6 +454,7 @@ sed -i 's/"usb",//' default_config/manifest.json
 sed -i 's/==[0-9\.]*//g' frontend/manifest.json
 
 cd ../..
+
 sed -i 's/    "/    # "/' homeassistant/generated/config_flows.py
 sed -i 's/    # "mqtt"/    "mqtt"/' homeassistant/generated/config_flows.py
 sed -i 's/    # "esphome"/    "esphome"/' homeassistant/generated/config_flows.py
